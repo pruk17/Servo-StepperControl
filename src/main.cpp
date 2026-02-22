@@ -20,5 +20,13 @@ void loop() {
             Serial.print("1 printed");
             robot.startPlantPattern();
         }
+        
+        else if (cmd == "0") {
+            Serial.print("0 printed");
+            robot.LoadPattern(); 
+        }
+        else if (cmd == "s") {
+            robot.stopAll(); 
+        }
     }
 }
