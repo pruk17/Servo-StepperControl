@@ -36,7 +36,7 @@ private:
 
 public:
     PlantingManager() : _stepper(AccelStepper::DRIVER, PIN_STEP, PIN_DIR) {}
-
+    int getCurrentStep() { return _currentStep; }
     long mmToSteps(float StepPermm);
     int angleToUs(float Angle);
     void begin(); // command to start

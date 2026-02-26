@@ -9,7 +9,7 @@
 
 #include "Ultra_detector.h" 
 #include "CtrlManager.h"
-
+//ros2 topic pub --once /plant_command std_msgs/msg/String "{data: '1'}" 
 // ตัวแปรสำหรับกลไก
 PlantingManager robot;
 
@@ -40,25 +40,37 @@ void command_callback(const void * msgin) {
 }
 
 void setup() {
-  robot.begin();
-  setupUltra();
-
+  Serial.begin(115200);
+  delay(2000);                 // IMPORTANT for ESP32 USB
   set_microros_serial_transports(Serial);
-  
-  // ตั้งค่า Custom Transport สำหรับ ESP32 บน Acer Nitro 5
+  delay(2000);                 // allow transport to open
+
   rmw_uros_set_custom_transport(
-    true, (void *) &Serial,
-    platformio_transport_open, platformio_transport_close,
-    platformio_transport_write, platformio_transport_read
+    true,
+    (void *) &Serial,
+    platformio_transport_open,
+    platformio_transport_close,
+    platformio_transport_write,
+    platformio_transport_read
   );
+  setupUltra();// ตั้งค่า Sensor
+  robot.begin();
 
   allocator = rcl_get_default_allocator();
   rcl_init_options_t init_options = rcl_get_zero_initialized_init_options();
   rcl_init_options_init(&init_options, allocator);
   rcl_init_options_set_domain_id(&init_options, 69);
 
-  while (rmw_uros_ping_agent(1000, 5) != RMW_RET_OK) { delay(500); }
+  Serial.println("Waiting for agent...");
+  while (rmw_uros_ping_agent(1000, 5) != RMW_RET_OK) {
+    Serial.println("Agent not ready");
+    delay(1000);
+  }
+  Serial.println("Agent connected");
 
+  // เตรียมพื้นที่หน่วยความจำสำหรับรับ String
+  command_msg.data.data = (char * ) malloc(20 * sizeof(char));
+  command_msg.data.capacity = 20;
   rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator);
   rclc_node_init_default(&node, "plant_ctrl_node", "", &support);
 
@@ -78,9 +90,6 @@ void setup() {
   rclc_executor_init(&executor, &support.context, 1, &allocator);
   rclc_executor_add_subscription(&executor, &command_sub, &command_msg, &command_callback, ON_NEW_DATA);
 
-  // เตรียมพื้นที่หน่วยความจำสำหรับรับ String
-  command_msg.data.data = (char * ) malloc(20 * sizeof(char));
-  command_msg.data.capacity = 20;
 }
 
 void loop() {

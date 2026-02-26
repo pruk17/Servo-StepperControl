@@ -104,10 +104,10 @@ void PlantingManager::update() {
     unsigned long elapsed_pattern = currentMillis - _previous_Millis;
 
     // Debug Print each Step
-    if (_currentStep != _lastPrintedStep) {
-        Serial.print("Executing Step: "); Serial.println(_currentStep);
-        _lastPrintedStep = _currentStep;
-    }
+    // if (_currentStep != _lastPrintedStep) {
+    //     Serial.print("Executing Step: "); Serial.println(_currentStep);
+    //     _lastPrintedStep = _currentStep;
+    // }
     // static unsigned long lastPrint=0;
     // if(millis()-lastPrint>300){
     //     lastPrint=millis();
@@ -321,7 +321,7 @@ void PlantingManager::update() {
                     // _isPatternRunning = false;
                     _currentStep = 0;
                     _activeMode = IDLE;
-                    Serial.println("Plant Pattern Done!");
+                    // Serial.println("Plant Pattern Done!");
                     break;
             }
             break;
@@ -348,7 +348,7 @@ void PlantingManager::update() {
                 case 3:
                     servo_plate.writeMicroseconds(angleToUs(HomeAngle));
                     if (elapsed_pattern >= 1000) { 
-                    Serial.println("Loading System Done!");
+                    // Serial.println("Loading System Done!");
                     _activeMode = IDLE; 
                     _currentStep = 0;   
                     _previous_Millis = currentMillis; 
@@ -365,6 +365,6 @@ void PlantingManager::stopAll() {
     _stepper.stop(); 
     _activeMode = IDLE;
     _currentStep = 0;
-    Serial.println("SYSTEM STOPPED!");
+    // Serial.println("SYSTEM STOPPED!");
 }
 
