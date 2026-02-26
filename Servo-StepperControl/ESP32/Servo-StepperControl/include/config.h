@@ -12,13 +12,7 @@
 #define PIN_ENABLE 26
 #define STEP_DELAY_US 160
 
-
-
 const int TRIG_PIN = 12; 
 const int ECHO_PIN = 34; 
 
-#define PIN_STEP 25
-#define PIN_DIR  26
-#define PIN_ENABLE 27
-#define STEP_DELAY_US 160
 
