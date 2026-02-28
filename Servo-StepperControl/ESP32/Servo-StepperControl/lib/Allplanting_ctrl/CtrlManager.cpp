@@ -175,7 +175,7 @@ void PlantingManager::update() {
                     }
                     break;
                 case 8: //gripper dig 
-                    servo_gripper.write(120);
+                    servo_gripper.write(140);
                     if (elapsed_pattern >= 1000) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
                 case 9: //lead linear down
@@ -191,16 +191,16 @@ void PlantingManager::update() {
                     }
                     break;
                 case 10: //linear
-                    servo_linear.write(60);
+                    servo_linear.write(50);
                     if (elapsed_pattern >= 1000) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
-                case 11: //gripper dig 
-                    servo_gripper.write(130);
+                case 11: //linear
+                    servo_linear.write(0);
                     if (elapsed_pattern >= 1000) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
                 case 12: //lead linear 
                     if (!_stepperCommandSent) {
-                    _stepper.moveTo(mmToSteps(-195.0));
+                    _stepper.moveTo(mmToSteps(-110.0));
                     _stepperCommandSent = true;
                     }
 
@@ -211,26 +211,10 @@ void PlantingManager::update() {
                     }
                     break;
                 case 13: //gripper open,
-                    servo_gripper.write(120);
-                    if (elapsed_pattern >= 2000) { _currentStep++; _previous_Millis = currentMillis; }
-                    break;
-                case 14: //lead linear 
-                    if (!_stepperCommandSent) {
-                    _stepper.moveTo(mmToSteps(-140.0));
-                    _stepperCommandSent = true;
-                    }
-
-                    if (_stepper.distanceToGo() == 0) {
-                        _stepperCommandSent = false;
-                        _currentStep++;
-                        _previous_Millis = currentMillis;
-                    }
-                    break;
-                case 15: //gripper open,
                     servo_gripper.write(20);
                     if (elapsed_pattern >= 2000) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
-                case 16: //lead linear 
+                case 14: //lead linear 
                     if (!_stepperCommandSent) {
                     _stepper.moveTo(mmToSteps(-184.0));
                     _stepperCommandSent = true;
@@ -242,51 +226,31 @@ void PlantingManager::update() {
                         _previous_Millis = currentMillis;
                     }
                     break;
-                case 17: //linear down 
-                    servo_linear.write(65);
+                case 15: //linear
+                    servo_linear.write(40);
                     if (elapsed_pattern >= 1000) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
-                case 18: //gripper go beside plant 1/3
+                case 16: //gripper open,
+                    servo_gripper.write(20);
+                    if (elapsed_pattern >= 2000) { _currentStep++; _previous_Millis = currentMillis; }
+                    break;
+                case 17: //gripper go beside plant 1/3
                     servo_gripper.write(45);
                     if (elapsed_pattern >= 1000) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
-                case 19: //gripper go beside plant 2/3
+                case 18: //gripper go beside plant 2/3
                     servo_gripper.write(70);
                     if (elapsed_pattern >= 1000) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
-                case 20: //gripper go beside plant 3/3
-                    servo_gripper.write(120);
+                case 19: //gripper go beside plant 3/3
+                    servo_gripper.write(125);
                     if (elapsed_pattern >= 1000) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
-                // case 9: 
-                //     servo_gripper.write(60);
-                //     if (elapsed >= 1500) { _currentStep++; _previousMillis = currentMillis; }
-                //     break;
-                // case 10: 
-                //     servo_linear.write(0);
-                //     if (elapsed >= 1500) { _currentStep++; _previousMillis = currentMillis; }
-                //     break;
-                // case 11: // Step 4: linear down 
-                //     servo_linear.write(60);
-                //     if (elapsed >= 1500) { _currentStep++; _previousMillis = currentMillis; }
-                //     break;
-                // case 12: // Step 4: gripper go beside plant 1/3
-                //     servo_gripper.write(60);
-                //     if (elapsed >= 1000) { _currentStep++; _previousMillis = currentMillis; }
-                //     break;
-                // case 13: // Step 4: gripper go beside plant 2/3
-                //     servo_gripper.write(85);
-                //     if (elapsed >= 1000) { _currentStep++; _previousMillis = currentMillis; }
-                //     break;
-                // case 14: // Step 4: gripper go beside plant 3/3
-                    // servo_gripper.write(125);
-                    // if (elapsed >= 2000) { _currentStep++; _previousMillis = currentMillis; }
-                    // break;
-                case 21: //linear up 
+                case 20: //linear up 
                     servo_linear.write(0);
                     if (elapsed_pattern >= 1500) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
-                case 22: // // lead up to to prevert crash
+                case 21: // // lead up to to prevert crash
                     if (!_stepperCommandSent) {
                         _stepper.moveTo(mmToSteps(-110.0));
                         _stepperCommandSent = true;
@@ -298,12 +262,12 @@ void PlantingManager::update() {
                         _previous_Millis = currentMillis;
                     }
                     break;
-                case 23: //
+                case 22: //
                     servo_gripper.write(158);
                     // servo_gripper.write(100); 
                     if (elapsed_pattern >= 2000) { _currentStep++; _previous_Millis = currentMillis; }
                     break;
-                case 24: //gripper, stepper go idle, stepper go to the point 
+                case 23: //gripper, stepper go idle, stepper go to the point 
                     // Serial.println(_stepper.currentPosition());
                     if (!_stepperCommandSent) {
                         _stepper.moveTo(mmToSteps(0.0));
@@ -316,7 +280,7 @@ void PlantingManager::update() {
                         _previous_Millis = currentMillis;
                     }
                     break;
-                case 25: // จบ Pattern
+                case 24: // จบ Pattern
                     // _isPatternRunning = false;
                     _currentStep = 0;
                     _activeMode = IDLE;
