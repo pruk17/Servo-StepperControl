@@ -1,6 +1,7 @@
 #pragma once
 //pin set up
 
+//Servo available on: 2,4,5,12-19,21-23,25-27,32-33
 #define SERVO_PIN_gripper 19
 #define SERVO_PIN_linear 27
 #define SERVO_PIN_plate 14
