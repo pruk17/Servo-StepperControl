@@ -30,6 +30,8 @@ private:
     float HomeAngle = 16.3; // plate degrees
     float _servo_plate_CurrentAngle = 16.3; // เก็บองศาปัจจุบันของ Servo 
     unsigned long _lastServoUpdate = 0; // เวลาที่อัปเดตองศาล่าสุด
+
+    int desireAngle = 0; // องศาที่ต้องการ (0-270)
     // Helper for TB6600 (Active-Low)
     void ena_enable();
     void ena_disable();
@@ -38,7 +40,8 @@ public:
     PlantingManager() : _stepper(AccelStepper::DRIVER, PIN_STEP, PIN_DIR) {}
     int getCurrentStep() { return _currentStep; }
     long mmToSteps(float StepPermm);
-    int angleToUs(float Angle);
+    int angleToUs(float Angle); //for MG996R on plant plate
+    int moveToAngle(int desireAngle, int maxAngle); //function for TD8135
     void begin(); // command to start
     // void runStepper(); 
     void startPlantPattern();
