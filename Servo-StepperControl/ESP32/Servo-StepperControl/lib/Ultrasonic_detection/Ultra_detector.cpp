@@ -36,7 +36,7 @@ float getStableDistance() {
         if (d > 2.0 && d < 400.0) {
             samples.push_back(d);
         }
-        delay(25); 
+        // delay(25); 
     }
 
     if (samples.size() < 3) return last_valid_distance;

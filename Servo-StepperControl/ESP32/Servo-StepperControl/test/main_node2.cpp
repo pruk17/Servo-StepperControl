@@ -36,6 +36,7 @@ void command_callback(const void * msgin) {
   
   if (cmd == "1") robot.startPlantPattern();
   else if (cmd == "0") robot.LoadPattern();
+  else if (cmd == "2") robot.testpattern();
   else if (cmd == "s") robot.stopAll();
 }
 
@@ -72,7 +73,7 @@ void setup() {
   command_msg.data.data = (char * ) malloc(20 * sizeof(char));
   command_msg.data.capacity = 20;
   rclc_support_init_with_options(&support, 0, NULL, &init_options, &allocator);
-  rclc_node_init_default(&node, "plant_ctrl_node", "", &support);
+  rclc_node_init_default(&node, "node2_ctrl", "", &support);
 
   // 1. Publisher: ระยะทาง Ultrasonic
   rclc_publisher_init_default(&ultra_pub, &node, 

@@ -4,7 +4,7 @@
 #include <AccelStepper.h>
 #include "config.h"
 
-enum TaskMode { IDLE, PLANTING, LOADING };
+enum TaskMode { IDLE, PLANTING, LOADING, TESTING };
 class PlantingManager {
 private:
     TaskMode _activeMode = IDLE;
@@ -46,6 +46,7 @@ public:
     // void runStepper(); 
     void startPlantPattern();
     void LoadPattern();
+    void testpattern();
     void update(); // call in loop()
     void stopAll(); // for Emergency Stop
 };

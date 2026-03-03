@@ -25,6 +25,10 @@ void loop() {
             Serial.print("0 printed");
             robot.LoadPattern(); 
         }
+        else if (cmd == "2") {
+            Serial.print("2 printed");
+            robot.testpattern(); 
+        }
         else if (cmd == "s") {
             robot.stopAll(); 
         }
